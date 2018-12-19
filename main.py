@@ -31,7 +31,7 @@ def responder(db):
     for x in mycursor.fetchall():
         id_preguntas.append(x[0])
 
-    cursor = collection.find()    
+    cursor = collection.find()
     for usuario in cursor:
         for pregunta in id_preguntas:
             sql = "INSERT INTO respuestas (id_usuario, id_pregunta, id_respuesta) VALUES(%s ,%s, %s)"
@@ -49,6 +49,13 @@ def responder(db):
             val = (usuario['cedula'], pregunta, respuesta)
             mycursor.execute(sql, val)
             mydb.commit()
+
+    # cursor = collection.find()
+   
+    # for usuario in cursor:
+    #     args = (usuario['cedula'], 0)
+    #     mycursor.callproc('calcularPuntos', args)
+        
     
 
 def generarCenso(cantPersonas, data, trabajos):
@@ -114,7 +121,7 @@ if __name__ == '__main__':
     resultado = cargarDatos(ruta)
     trabajos = cargarDatos('data/works.json')
     generarCenso(arg.cantPersonas, resultado, trabajos)
-    responder("instinto")
+    # responder("instinto")
     responder("pensamiento")
-    responder("sentimiento")
+    # responder("sentimiento")
 
